@@ -1,0 +1,105 @@
+/* 科技蓝主题样式 */
+:root {
+  --primary-blue: #2a52be;
+  --tech-gradient: linear-gradient(135deg, #2a52be 0%, #1e3c72 100%);
+}
+
+body {
+  background: var(--tech-gradient);
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-panel {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  padding: 2rem;
+  backdrop-filter: blur(20px) saturate(200%);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.btn-tech {
+  background: rgba(42,82,190,0.3);
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 
+    4px 4px 10px rgba(0,0,0,0.2),
+    -4px -4px 10px rgba(255,255,255,0.1),
+    inset 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-tech:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(42,82,190,0.8);
+}
+
+.traffic-light {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 10px;
+  background: linear-gradient(145deg, #1a1a1a, #262626);
+  box-shadow: 
+    inset 3px 3px 5px rgba(0,0,0,0.5),
+    inset -3px -3px 5px rgba(255,255,255,0.1),
+    0 0 15px rgba(255,255,255,0.3);
+  border: 2px solid rgba(255,255,255,0.15);
+}
+
+.flex-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 15px 0;
+}
+
+/* 新增金属灯杆样式 */
+.lamp-pole {
+    width: 15px;
+    height: 150px;
+    background: linear-gradient(to right, #707070, #4a4a4a);
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+    margin: 0 auto;
+}
+
+/* 灯罩3D效果 */
+.light-shade {
+    border-radius: 5px;
+    transform: perspective(100px) rotateX(10deg);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    padding: 8px;
+}
+
+/* 新增灯组容器样式 */
+.light-group {
+    display: flex;
+    flex-direction: row;
+    margin: 0 20px;
+    gap: 20px;
+    align-items: center;
+    position: relative;
+}
+
+.traffic-light {
+    transition: all 0.5s ease-in-out;
+}
+
+/* 黄灯常亮状态 */
+.yellow-idle {
+    background-color: #ffd700 !important;
+    opacity: 0.6;
+}

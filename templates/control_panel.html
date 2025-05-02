@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>智能交通灯控制系统</title>
+    <link href="/static/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <h2 class="mb-4">实时交通灯控制</h2>
+                <div class="status-panel">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>当前灯型：<span id="light-type">single</span></h5>
+                            <div class="flex-container">
+                                <button type="button" class="btn-tech flow-btn" data-flow="50">低流量</button>
+                                <button class="btn-tech flow-btn" data-flow="150">中流量</button>
+                                <button class="btn-tech flow-btn" data-flow="300">高流量</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="light-group">
+                                <div class="traffic-light bg-danger"></div>
+                                <div class="traffic-light bg-warning"></div>
+                                <div class="traffic-light bg-success"></div>
+                            </div>
+                            <div class="light-group">
+                                <div class="traffic-light bg-danger"></div>
+                                <div class="traffic-light bg-warning"></div>
+                                <div class="traffic-light bg-success"></div>
+                            </div>
+                            <div class="light-group">
+                                <div class="traffic-light bg-danger"></div>
+                                <div class="traffic-light bg-warning"></div>
+                                <div class="traffic-light bg-success"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+    <div class="light-group">
+        <div class="lamp-pole"></div>
+        <div class="light-shade">
+            <i class="fa-solid fa-arrow-left traffic-light"></i>
+        </div>
+    </div>
+    <div class="light-group">
+        <div class="lamp-pole"></div>
+        <div class="light-shade">
+            <i class="fa-solid fa-circle traffic-light"></i>
+        </div>
+    </div>
+    <div class="light-group">
+        <div class="lamp-pole"></div>
+        <div class="light-shade">
+            <i class="fa-solid fa-arrow-right traffic-light"></i>
+        </div>
+    </div>
+    <div id="light-container" class="light-group"></div>
+
+    <script>
+        $(document).ready(function() {
+            $('.flow-btn').click(function() {
+                var flow = $(this).data('flow');
+                updateFlow(flow);
+            });
+
+            function updateFlow(flow) {
+                $.ajax({
+                    url: '/api/update_flow',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ flow: flow }),
+                    success: function(response) {
+                        $('#light-type').text(response.recommended_type);
+                        updateLightDisplay(response.recommended_type);
+                    }
+                });
+            }
+        });
+
+        function updateLightDisplay(type) {
+// 为避免变量重复声明，将代码移到函数开头，仅声明一次
+// 原代码已被移除，变量声明逻辑统一处理
+    container.empty();
+
+// 原代码存在变量重复声明问题，将其移到函数开头统一声明，此处移除重复声明
+                  type === 'double' ? ['red', 'green'] : 
+                  ['red', 'yellow', 'green'];
+
+    colors.forEach(color => {
+        container.append(`<div class="traffic-light bg-${color}"></div>`);
+    });
+
+    // 添加过渡延迟确保动画生效
+    setTimeout(() => {
+        $('.traffic-light').css('opacity', '1');
+    }, 10);
+            const container = $('#light-container');
+            container.empty();
+
+            const colors = type === 'single' ? ['red'] : 
+                          type === 'double' ? ['red', 'green'] : 
+                          ['red', 'yellow', 'green'];
+
+            colors.forEach(color => {
+                container.append(`<div class="traffic-light bg-${color}"></div>`);
+            });
+        }
+    </script>
+</body>
+</html>
